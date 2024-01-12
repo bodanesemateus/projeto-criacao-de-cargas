@@ -30,47 +30,87 @@ export default class CargaSaida {
     }
 
     validate(): boolean {
-        if (!this._id) {
-            throw new Error('Invalid id');
+        if(!this._id){
+            throw new Error("Id is required");
         }
 
-        if (!this._dataSaida) {
-            throw new Error('Invalid dataSaida');
+        if(!this._dataSaida){
+            throw new Error("DataSaida is required");
         }
 
-        if (this._dataSaida < new Date()) {
-            throw new Error('Invalid dataSaida, dataSaida cannot be less than today');
+        if(!this._nroCarga){
+            throw new Error("NroCarga is required");
         }
 
-        if (!this._nroCarga) {
-            throw new Error('Invalid nroCarga');
+        if(!this._unidId){
+            throw new Error("UnidId is required");
         }
 
-        if (!this._unidId) {
-            throw new Error('Invalid unidId');
+        if(!this._usuId){
+            throw new Error("UsuId is required");
         }
 
-        if (!this._usuId) {
-            throw new Error('Invalid usuId');
+        if(this._dataSaida < new Date()){
+            throw new Error("DataSaida must be greater than sysdate");
         }
 
-        if (!this._embarqueRetira) {
-            throw new Error('Invalid embarqueRetira');
+        if(!this._embarqueRetira){
+            throw new Error("EmbarqueRetira is required");
         }
 
-        if (!this._camaVeiculId) {
-            throw new Error('Invalid camaVeiculId');
+        if(!this._camaVeiculId){
+            throw new Error("CamaVeiculId is required");
         }
 
-        if (!this._veicRetId) {
-            throw new Error('Invalid veicRetId');
+        if(!this._veicRetId){
+            throw new Error("VeicRetId is required");
         }
 
-        if (!this._transportadoraId) {
-            throw new Error('Invalid transportadoraId');
+        if(!this._transportadoraId){
+            throw new Error("TransportadoraId is required");
         }
 
         return true;
-        
     }
+
+    changeEmbarqueRetira(embarqueRetira: number): void {
+        this._embarqueRetira = embarqueRetira;
+    }
+
+    changeVeicRetId(veicRetId: number): void {
+        this._veicRetId = veicRetId;
+    }
+
+    changeDataSaida(dataSaida: Date): void {
+        this._dataSaida = dataSaida;
+    }
+
+    changeTransportadoraId(transportadoraId: number): void {
+        this._transportadoraId = transportadoraId;
+    }
+
+    changeEnderIdTransbordo(enderIdTransbordo: number): void {
+        this._enderIdTransbordo = enderIdTransbordo;
+    }
+
+    get embarqueRetira(): number {
+        return this._embarqueRetira;
+    }
+
+    get veicRetId(): number {
+        return this._veicRetId;
+    }
+
+    get dataSaida(): Date {
+        return this._dataSaida;
+    }
+
+    get transportadoraId(): number {
+        return this._transportadoraId;
+    }
+
+    get enderIdTransbordo(): number {
+        return this._enderIdTransbordo;
+    }
+
 }
