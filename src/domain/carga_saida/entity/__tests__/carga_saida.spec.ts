@@ -112,4 +112,13 @@ describe('CargaSaida unit tests', () => {
         expect(cargaSaida.enderIdTransbordo).toBe(2);
     });
 
+    it("should change released", () => {
+
+        let cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+        cargaSaida.changeReleased(true);
+
+        expect(cargaSaida.released).toBe(true);
+    });
+
 });

@@ -14,6 +14,7 @@ export default class CargaSaida {
     private _veicRetId: number;
     private _transportadoraId: number;
     private _enderIdTransbordo: number = 0;
+    private _released: boolean = false;
 
     constructor(id:string, dataSaida:Date, nroCarga:number, unidId:number, usuId:number, embarqueRetira:number, imprePrevDb:number, divisoria:number, camaVeiculId:number, veicRetId:number, transportadoraId:number, enderIdTransbordo:number){
         this._id = id;
@@ -95,6 +96,10 @@ export default class CargaSaida {
         this._enderIdTransbordo = enderIdTransbordo;
     }
 
+    changeReleased(released: boolean): void {
+        this._released = released;
+    }
+
     get embarqueRetira(): number {
         return this._embarqueRetira;
     }
@@ -117,6 +122,10 @@ export default class CargaSaida {
 
     get id(): string {
         return this._id;
+    }
+
+    get released(): boolean {
+        return this._released;
     }
 
 }
