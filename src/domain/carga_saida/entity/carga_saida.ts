@@ -1,3 +1,5 @@
+import CargaSaidaPendente from "./carga_saida_pendente";
+
 export default class CargaSaida {
     private _id: string;
     private _dataSaida: Date;
@@ -111,6 +113,10 @@ export default class CargaSaida {
 
     get enderIdTransbordo(): number {
         return this._enderIdTransbordo;
+    }
+
+    get id(): string {
+        return this._id;
     }
 
 }
