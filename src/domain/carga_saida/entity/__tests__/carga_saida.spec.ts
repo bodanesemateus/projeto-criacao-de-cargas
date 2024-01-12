@@ -14,21 +14,12 @@ describe('CargaSaida unit tests', () => {
     it("should throw an error if dataSaida is not provided", () => {
         expect(() => new CargaSaida("1", null as any, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)).toThrow('Invalid dataSaida');
     });
-
-    it("should throw an error if dataSaida is less than today", () => {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 10);
-        const cargaSaida = new CargaSaida("1", yesterday, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        expect(cargaSaida).toThrow('Invalid dataSaida, dataSaida cannot be less than today');
-    });
-
-    it("should throw an error if dataSaida is less than today", () => {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 10);
-        const createCargaSaida = () => new CargaSaida("1", yesterday, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        expect(createCargaSaida).toThrow('Invalid dataSaida, dataSaida cannot be less than today');
-    });
     
+    it("should throw an error if dataSaida is less than today", () => {
+        const dataSaida = new Date();
+        dataSaida.setDate(dataSaida.getDate() - 1);
+        expect(() => new CargaSaida("1", dataSaida, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)).toThrow('Invalid dataSaida, dataSaida cannot be less than today');
+    });
 
     it("should throw an error if nroCarga is not provided", () => {
         const cargaSaida = new CargaSaida("1", new Date(), null as any, 1, 1, 1, 1, 1, 1, 1, 1, 1);

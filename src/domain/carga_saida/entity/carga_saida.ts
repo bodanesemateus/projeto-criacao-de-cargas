@@ -29,7 +29,7 @@ export default class CargaSaida {
         this.validate();
     }
 
-    validate() {
+    validate(): boolean {
         if (!this._id) {
             throw new Error('Invalid id');
         }
@@ -70,6 +70,7 @@ export default class CargaSaida {
             throw new Error('Invalid transportadoraId');
         }
 
+        return true;
         
     }
 }
