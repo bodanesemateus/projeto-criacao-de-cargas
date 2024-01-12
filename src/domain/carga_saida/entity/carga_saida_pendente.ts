@@ -1,4 +1,3 @@
-import CargaSaida from "./carga_saida";
 
 export default class CargaSaidaPendente {
     private _id: string;
