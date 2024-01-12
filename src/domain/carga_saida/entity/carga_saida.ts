@@ -128,4 +128,51 @@ export default class CargaSaida {
         return this._released;
     }
 
+    get nroCarga(): number {
+        return this._nroCarga;
+    }
+
+    get unidId(): number {
+        return this._unidId;
+    }
+
+    get usuId(): number {
+        return this._usuId;
+    }
+
+    get dataCriacao(): Date {
+        return this._dataCriacao;
+    }
+
+    get imprePrevDb(): number {
+        return this._imprePrevDb;
+    }
+
+    get divisoria(): number {
+        return this._divisoria;
+    }
+
+    get camaVeiculId(): number {
+        return this._camaVeiculId;
+    }
+
+    toJSON() {
+        return {
+            id: this._id,
+            dataSaida: this._dataSaida,
+            nroCarga: this._nroCarga,
+            unidId: this._unidId,
+            usuId: this._usuId,
+            dataCriacao: this._dataCriacao,
+            embarqueRetira: this._embarqueRetira,
+            imprePrevDb: this._imprePrevDb,
+            divisoria: this._divisoria,
+            camaVeiculId: this._camaVeiculId,
+            veicRetId: this._veicRetId,
+            transportadoraId: this._transportadoraId,
+            enderIdTransbordo: this._enderIdTransbordo,
+            released: this._released
+        }
+    }
+
 }
