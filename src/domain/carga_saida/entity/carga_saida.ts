@@ -1,4 +1,3 @@
-import CargaSaidaPendente from "./carga_saida_pendente";
 
 export default class CargaSaida {
     private _id: string;
@@ -6,7 +5,7 @@ export default class CargaSaida {
     private _nroCarga: number;
     private _unidId: number;
     private _usuId: number;
-    private _dataCriacao: Date = new Date();
+    private _dataCriacao: Date;
     private _embarqueRetira: number;
     private _imprePrevDb: number = 0;
     private _divisoria: number = 0;
@@ -14,14 +13,14 @@ export default class CargaSaida {
     private _veicRetId: number;
     private _transportadoraId: number;
     private _enderIdTransbordo: number = 0;
-    private _released: boolean = false;
 
-    constructor(id:string, dataSaida:Date, nroCarga:number, unidId:number, usuId:number, embarqueRetira:number, imprePrevDb:number, divisoria:number, camaVeiculId:number, veicRetId:number, transportadoraId:number, enderIdTransbordo:number){
+    constructor(id:string, dataSaida:Date, nroCarga:number, unidId:number, usuId:number, dataCriacao:Date, embarqueRetira:number, imprePrevDb:number, divisoria:number, camaVeiculId:number, veicRetId:number, transportadoraId:number, enderIdTransbordo:number){
         this._id = id;
         this._dataSaida = dataSaida;
         this._nroCarga = nroCarga;
         this._unidId = unidId;
         this._usuId = usuId;
+        this._dataCriacao = dataCriacao;
         this._embarqueRetira = embarqueRetira;
         this._imprePrevDb = imprePrevDb;
         this._divisoria = divisoria;
@@ -41,6 +40,10 @@ export default class CargaSaida {
             throw new Error("DataSaida is required");
         }
 
+        if (this._dataSaida.getDate() < new Date().getDate()) {
+            throw new Error("DataSaida must be greater than sysdate");
+        }        
+
         if(!this._nroCarga){
             throw new Error("NroCarga is required");
         }
@@ -53,8 +56,8 @@ export default class CargaSaida {
             throw new Error("UsuId is required");
         }
 
-        if(this._dataSaida < new Date()){
-            throw new Error("DataSaida must be greater than sysdate");
+        if(!this._dataCriacao){
+            throw new Error("DataCriacao is required");
         }
 
         if(!this._embarqueRetira){
@@ -96,10 +99,6 @@ export default class CargaSaida {
         this._enderIdTransbordo = enderIdTransbordo;
     }
 
-    changeReleased(released: boolean): void {
-        this._released = released;
-    }
-
     get embarqueRetira(): number {
         return this._embarqueRetira;
     }
@@ -122,10 +121,6 @@ export default class CargaSaida {
 
     get id(): string {
         return this._id;
-    }
-
-    get released(): boolean {
-        return this._released;
     }
 
     get nroCarga(): number {
@@ -170,8 +165,7 @@ export default class CargaSaida {
             camaVeiculId: this._camaVeiculId,
             veicRetId: this._veicRetId,
             transportadoraId: this._transportadoraId,
-            enderIdTransbordo: this._enderIdTransbordo,
-            released: this._released
+            enderIdTransbordo: this._enderIdTransbordo
         }
     }
 
