@@ -10,21 +10,36 @@ export default class CargaSaidaGradeModel extends Model{
     declare id: string;
 
     @Column({allowNull: false})
-    declare data_prev_carga: Date;
+    declare cabotagem: boolean;
 
     @Column({allowNull: false})
-    declare grade_carga_id: number;
+    declare terceiro: boolean;
 
     @Column({allowNull: false})
-    declare seq_carga: number;
+    declare cargaSaidaId: string;
 
     @Column({allowNull: false})
-    declare local_log_id: number;
+    declare tpCarSaiId: number;
 
     @Column({allowNull: false})
-    declare carga_saida_id: string;
+    declare tpConsCargId: number;
 
     @Column({allowNull: false})
-    declare data_inclusao: Date;
+    declare unidCargaId: number;
+
+    @Column({allowNull: false})
+    declare motivoGeralId: number;
+
+    @Column({allowNull: false})
+    declare paramWsTvId: number;
+
+    @Column({allowNull: false})
+    declare prioridade: number;
+
+    @Column({allowNull: false})
+    declare pesoPayload: number;
+
+    @Column({allowNull: false})
+    declare motivoGeralIdUnidCarga: number;
 
 }

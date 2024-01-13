@@ -34,11 +34,11 @@ export default class CargaSaidaGrade {
             throw new Error("Id is required");
         }
 
-        if (!this._cabotagem) {
+        if (this._cabotagem === undefined) {
             throw new Error("Cabotagem is required");
         }
 
-        if (!this._terceiro) {
+        if (this._terceiro === undefined) {
             throw new Error("Terceiro is required");
         }
 
@@ -126,6 +126,23 @@ export default class CargaSaidaGrade {
 
     get motivoGeralIdUnidCarga(): number {
         return this._motivoGeralIdUnidCarga;
+    }
+
+    toJSON() {
+        return {
+            id: this.id,
+            cabotagem: this.cabotagem,
+            terceiro: this.terceiro,
+            cargaSaidaId: this.cargaSaidaId,
+            tpCarSaiId: this.tpCarSaiId,
+            tpConsCargId: this.tpConsCargId,
+            unidCargaId: this.unidCargaId,
+            motivoGeralId: this.motivoGeralId,
+            paramWsTvId: this.paramWsTvId,
+            prioridade: this.prioridade,
+            pesoPayload: this.pesoPayload,
+            motivoGeralIdUnidCarga: this.motivoGeralIdUnidCarga
+        }
     }
 
 }
