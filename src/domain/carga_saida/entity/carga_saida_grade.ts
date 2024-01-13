@@ -77,10 +77,55 @@ export default class CargaSaidaGrade {
         if (!this._motivoGeralIdUnidCarga) {
             throw new Error("MotivoGeralIdUnidCarga is required");
         }
-
-
         return true;
+    }
 
+    get id(): string {
+        return this._id;
+    }
+
+    get cabotagem(): boolean {
+        return this._cabotagem;
+    }
+
+    get terceiro(): boolean {
+        return this._terceiro;
+    }
+
+    get cargaSaidaId(): string {
+        return this._cargaSaidaId;
+    }
+
+    get tpCarSaiId(): number {
+        return this._tpCarSaiId;
+    }
+
+    get tpConsCargId(): number {
+        return this._tpConsCargId;
+    }
+
+    get unidCargaId(): number {
+        return this._unidCargaId;
+    }
+
+    get motivoGeralId(): number {
+        return this._motivoGeralId;
+    }
+
+    get paramWsTvId(): number {
+        return this._paramWsTvId;
+    }
+
+    get prioridade(): number {
+        return this._prioridade;
+    }
+
+    get pesoPayload(): number {
+        return this._pesoPayload;
+    }
+
+    get motivoGeralIdUnidCarga(): number {
+        return this._motivoGeralIdUnidCarga;
     }
 
 }

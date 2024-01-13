@@ -1,6 +1,6 @@
 export default interface RepositoryInterface<T> {
-    save(entity: T): Promise<T>;
-    update(entity: T): Promise<T>;
-    getById(id: string): Promise<T>;
-    getAll(): Promise<T[]>;
+    create(entity: T): Promise<void>;
+    update(entity: T): Promise<void>;
+    findById(id: string): Promise<T>;
+    findAll(): Promise<T[]>;
 }

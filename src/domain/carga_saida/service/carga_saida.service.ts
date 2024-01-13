@@ -2,7 +2,7 @@ import CargaSaida from "../entity/carga_saida";
 
 export default class CargaSaidaService {
     
-    public static makeCargo(id:string, dataSaida:Date, nroCarga:number, unidId:number, usuId:number, embarqueRetira:number, imprePrevDb:number, 
+    public static makeCargo(id:string, dataSaida:Date, nroCarga:number, unidId:number, usuId:number, dataCriacao:Date, embarqueRetira:number, imprePrevDb:number, 
         divisoria:number, camaVeiculId:number, veicRetId:number, transportadoraId:number, enderIdTransbordo:number): CargaSaida {
 
         if (!id) {
@@ -23,6 +23,10 @@ export default class CargaSaidaService {
 
         if (!usuId) {
             throw new Error("UsuId is required");
+        }
+
+        if (!dataCriacao) {
+            throw new Error("DataCriacao is required");
         }
 
         if (dataSaida < new Date()) {
@@ -57,8 +61,8 @@ export default class CargaSaidaService {
             throw new Error("EnderIdTransbordo is required");
         }
 
-        const cargo = new CargaSaida(id, dataSaida, nroCarga, unidId, usuId, embarqueRetira, imprePrevDb, divisoria, camaVeiculId, veicRetId, transportadoraId, enderIdTransbordo);
-
+        const cargo = new CargaSaida(id, dataSaida, nroCarga, unidId, usuId, dataCriacao, embarqueRetira, imprePrevDb, divisoria, camaVeiculId, veicRetId, transportadoraId, enderIdTransbordo);
+        
         return cargo;
     }
 

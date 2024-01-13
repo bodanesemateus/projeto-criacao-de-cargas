@@ -1,7 +1,8 @@
 import CargaSaida from "../../../../domain/carga_saida/entity/carga_saida";
+import CargaSaidaRepositoryInterface from "../../../../domain/carga_saida/repository/carga_saida-repository.interface";
 import CargaSaidaModel from "./carga_saida.model";
 
-export default class CargaSaidaRepository implements CargaSaidaRepository {
+export default class CargaSaidaRepository implements CargaSaidaRepositoryInterface {
     
     async create(cargaSaida: CargaSaida) {
         await CargaSaidaModel.create({
@@ -17,6 +18,7 @@ export default class CargaSaidaRepository implements CargaSaidaRepository {
             camaVeiculId: cargaSaida.camaVeiculId,
             veicRetId: cargaSaida.veicRetId,
             transportadoraId: cargaSaida.transportadoraId,
+            enderIdTransbordo: cargaSaida.enderIdTransbordo
         });
     }
 
@@ -33,6 +35,7 @@ export default class CargaSaidaRepository implements CargaSaidaRepository {
             camaVeiculId: cargaSaida.camaVeiculId,
             veicRetId: cargaSaida.veicRetId,
             transportadoraId: cargaSaida.transportadoraId,
+            enderIdTransbordo: cargaSaida.enderIdTransbordo
         }, {
             where: {
                 id: cargaSaida.id
@@ -51,12 +54,13 @@ export default class CargaSaidaRepository implements CargaSaidaRepository {
         } catch (error) {
             throw new Error("CargoSaida not found");
         }
-
+    
         const cargo = new CargaSaida(id, 
                                     cargaSaidaModel.dataSaida, 
                                     cargaSaidaModel.nroCarga, 
                                     cargaSaidaModel.unidId, 
                                     cargaSaidaModel.usuId, 
+                                    cargaSaidaModel.dataCriacao,
                                     cargaSaidaModel.embarqueRetira, 
                                     cargaSaidaModel.imprePrevDb, 
                                     cargaSaidaModel.divisoria, 
@@ -75,6 +79,7 @@ export default class CargaSaidaRepository implements CargaSaidaRepository {
                                   cargaSaidaModel.nroCarga, 
                                   cargaSaidaModel.unidId, 
                                   cargaSaidaModel.usuId, 
+                                  cargaSaidaModel.dataCriacao,
                                   cargaSaidaModel.embarqueRetira, 
                                   cargaSaidaModel.imprePrevDb, 
                                   cargaSaidaModel.divisoria, 
@@ -85,4 +90,6 @@ export default class CargaSaidaRepository implements CargaSaidaRepository {
         });
         return cargas;
     }
+    
+    
 }

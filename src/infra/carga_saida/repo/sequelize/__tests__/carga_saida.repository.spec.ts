@@ -4,10 +4,9 @@ import CargaSaidaRepository from "../carga_saida.repository";
 import CargaSaida from "../../../../../domain/carga_saida/entity/carga_saida";
 
 describe('CargaSaidaRepository unit tests', () => {
-
     let sequelize: Sequelize;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         sequelize = new Sequelize({
             dialect: 'sqlite',
             storage: ':memory:',
@@ -24,63 +23,65 @@ describe('CargaSaidaRepository unit tests', () => {
     });
 
     it('should create a new CargaSaida', async () => {
-        const cargaRepository = new CargaSaidaRepository();
-        let cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        await cargaRepository.create(cargaSaida);
+        const cargaSaidaRepository = new CargaSaidaRepository();
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);
 
-        const cargaSaidaModel = await CargaSaidaModel.findOne({
-            where: {
-                id: "1"
-            }
-        });
+        await cargaSaidaRepository.create(cargaSaida);
 
-        expect(cargaSaidaModel.toJSON()).toStrictEqual(cargaSaida.toJSON());
+        const cargaSaidaCreated = await CargaSaidaModel.findByPk(cargaSaida.id);
+
+        expect(cargaSaidaCreated).not.toBeNull();
+        expect(cargaSaidaCreated.toJSON()).toEqual(cargaSaida.toJSON());
     });
 
     it('should update a CargaSaida', async () => {
-        const cargaRepository = new CargaSaidaRepository();
-        let cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        await cargaRepository.create(cargaSaida);
+        const cargaSaidaRepository = new CargaSaidaRepository();
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);
 
-        cargaSaida = new CargaSaida("1", new Date(), 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
-        await cargaRepository.update(cargaSaida);
+        await cargaSaidaRepository.create(cargaSaida);
 
-        const cargaSaidaModel = await CargaSaidaModel.findOne({
-            where: {
-                id: "1"
-            }
-        });
+        cargaSaida.changeDataSaida(new Date("2020-01-01"));
 
-        expect(cargaSaidaModel.toJSON()).toStrictEqual(cargaSaida.toJSON());
+        await cargaSaidaRepository.update(cargaSaida);
+
+        const cargaSaidaUpdated = await CargaSaidaModel.findByPk(cargaSaida.id);
+
+        expect(cargaSaidaUpdated.toJSON()).toEqual(cargaSaida.toJSON());
+        
     });
 
     it('should find a CargaSaida by id', async () => {
-        const cargaRepository = new CargaSaidaRepository();
-        let cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        await cargaRepository.create(cargaSaida);
+        const cargaSaidaRepository = new CargaSaidaRepository();
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);
 
-        const cargaSaidaFound = await cargaRepository.findById("1");
+        await cargaSaidaRepository.create(cargaSaida);
+
+        const cargaSaidaFound = await cargaSaidaRepository.findById(cargaSaida.id);
 
         expect(cargaSaida).toStrictEqual(cargaSaidaFound);
     });
 
-    it('should throw an error when CargaSaida not found', async () => {
-        const cargaRepository = new CargaSaidaRepository();
+    it('should throw error when CargaSaida not found', async () => {
+        const cargaSaidaRepository = new CargaSaidaRepository();
 
-        await expect(cargaRepository.findById("13123123")).rejects.toThrow("CargaSaida not found");
+        expect(async () => {
+            await cargaSaidaRepository.findById("1");
+        }).rejects.toThrowError("CargoSaida not found");
     });
 
     it('should find all CargaSaida', async () => {
-        const cargaRepository = new CargaSaidaRepository();
-        let cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        await cargaRepository.create(cargaSaida);
+        const cargaSaidaRepository = new CargaSaidaRepository();
+        const cargaSaida1 = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);
+        const cargaSaida2 = new CargaSaida("2", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);
 
-        cargaSaida = new CargaSaida("2", new Date(), 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
-        await cargaRepository.create(cargaSaida);
+        await cargaSaidaRepository.create(cargaSaida1);
+        await cargaSaidaRepository.create(cargaSaida2);
 
-        const cargasSaidaFound = await cargaRepository.findAll();
+        const cargasSaidaFound = await cargaSaidaRepository.findAll();
 
         expect(cargasSaidaFound).toHaveLength(2);
+        expect(cargasSaidaFound).toContainEqual(cargaSaida1);
+        expect(cargasSaidaFound).toContainEqual(cargaSaida2);
     });
 
 });
