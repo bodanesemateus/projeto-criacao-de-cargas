@@ -5,16 +5,17 @@ export default class OrigemCargaSaida {
     private _seqCarga: number;
     private _localLogId: number;
     private _cargaSaidaId: string;
-    private _dataInclusao: Date = new Date();
+    private _dataInclusao: Date;
 
 
-    constructor(id: string, dataPrevCarga: Date, gradeCargaId: number, seqCarga: number, localLogId: number, cargaSaidaId: string) {
+    constructor(id: string, dataPrevCarga: Date, gradeCargaId: number, seqCarga: number, localLogId: number, cargaSaidaId: string, dataInclusao: Date) {
         this._id = id;
         this._dataPrevCarga = dataPrevCarga;
         this._gradeCargaId = gradeCargaId;
         this._seqCarga = seqCarga;
         this._localLogId = localLogId;
         this._cargaSaidaId = cargaSaidaId;
+        this._dataInclusao = dataInclusao;
         this.validate();
     }
 
@@ -43,6 +44,10 @@ export default class OrigemCargaSaida {
             throw new Error("CargaSaidaId is required");
         }
 
+        if (!this._dataInclusao) {
+            throw new Error("DataInclusao is required");
+        }
+
         return true;
     }
 
@@ -53,4 +58,45 @@ export default class OrigemCargaSaida {
     changeSeqCarga(seqCarga: number): void {
         this._seqCarga = seqCarga;
     }
+
+    toJSON() {
+        return {
+            id: this._id,
+            dataPrevCarga: this._dataPrevCarga,
+            gradeCargaId: this._gradeCargaId,
+            seqCarga: this._seqCarga,
+            localLogId: this._localLogId,
+            cargaSaidaId: this._cargaSaidaId,
+            dataInclusao: this._dataInclusao,
+        };
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    get dataPrevCarga(): Date {
+        return this._dataPrevCarga;
+    }
+
+    get gradeCargaId(): number {
+        return this._gradeCargaId;
+    }
+
+    get seqCarga(): number {
+        return this._seqCarga;
+    }
+
+    get localLogId(): number {
+        return this._localLogId;
+    }
+
+    get cargaSaidaId(): string {
+        return this._cargaSaidaId;
+    }
+
+    get dataInclusao(): Date {
+        return this._dataInclusao;
+    }
+    
 }
