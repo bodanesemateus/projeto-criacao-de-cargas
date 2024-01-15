@@ -1,7 +1,8 @@
-import {Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import CargaSaidaModel from "../../../carga_saida/repo/sequelize/carga_saida.model";
 
 @Table({ 
-    tableName: "carga_saida_grade", 
+    tableName: "origem_carga_saida", 
     timestamps: false })
 
 export class OrigemCargaSaidaModel extends Model {
@@ -22,8 +23,12 @@ export class OrigemCargaSaidaModel extends Model {
     @Column({allowNull: false})
     declare local_log_id: number;
 
+    @ForeignKey(() => CargaSaidaModel)
     @Column({allowNull: false})
     declare carga_saida_id: string;
+
+    @BelongsTo(() => CargaSaidaModel)
+    declare carga_saida: CargaSaidaModel;
 
     @Column({allowNull: false})
     declare data_inclusao: Date;
