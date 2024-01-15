@@ -3,4 +3,5 @@ import CargaSaidaPendente from "../entity/carga_saida_pendente";
 
 export default interface CargaSaidaPendenteRepositoryInterface extends RepositoryInterface<CargaSaidaPendente> {
     delete(entity: CargaSaidaPendente): Promise<void>;
+    findByCargaSaidaId(cargaSaidaId: string): Promise<CargaSaidaPendente>;
 }

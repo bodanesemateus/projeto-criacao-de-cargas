@@ -73,5 +73,28 @@ describe('CargaSaidaPendenteRepository unit tests', () => {
         expect(cargaSaidaPendenteFound.toJSON()).toEqual(cargaSaidaPendente.toJSON());
     });
 
+    it('should throw error when CargaSaidaPendenteModel not found', async () => {
+        const cargaSaidaPendenteRepository = new CargaSaidaPendenteRepository();
+
+        expect(async () => {
+            await cargaSaidaPendenteRepository.findById("1");
+        }).rejects.toThrowError("CargaSaidaPendente not found");
+    });
+
+    it('should find a CargaSaidaPendenteModel by cargaSaidaId', async () => {
+        const cargaSaidaRepository = new CargaSaidaRepository();     
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida);
+
+        const cargaSaidaPendenteRepository = new CargaSaidaPendenteRepository();
+        const cargaSaidaPendente = new CargaSaidaPendente("1", cargaSaida.id);
+        await cargaSaidaPendenteRepository.create(cargaSaidaPendente);
+
+        const cargaSaidaPendenteFound = await cargaSaidaPendenteRepository.findByCargaSaidaId(cargaSaida.id);
+
+        expect(cargaSaidaPendenteFound).not.toBeNull();
+        expect(cargaSaidaPendenteFound.toJSON()).toEqual(cargaSaidaPendente.toJSON());
+    });
+
 
 });

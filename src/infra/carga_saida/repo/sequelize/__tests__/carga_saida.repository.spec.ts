@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import CargaSaidaModel from "../carga_saida.model";
 import CargaSaidaRepository from "../carga_saida.repository";
 import CargaSaida from "../../../../../domain/carga_saida/entity/carga_saida";
+import CargaSaidaPendenteModel from "../../../../carga_saida_pendente/repo/sequelize/carga_saida_pendente.model";
 
 describe('CargaSaidaRepository unit tests', () => {
     let sequelize: Sequelize;
@@ -14,7 +15,7 @@ describe('CargaSaidaRepository unit tests', () => {
             sync: { force: true },
         });
 
-        sequelize.addModels([CargaSaidaModel]);
+        sequelize.addModels([CargaSaidaModel, CargaSaidaPendenteModel]);
         await sequelize.sync();
     });
 

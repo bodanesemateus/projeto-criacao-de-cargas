@@ -41,4 +41,20 @@ export default class CargaSaidaPendenteRepository implements CargaSaidaPendenteR
         throw new Error("Method not implemented.");
     }
 
+    async findByCargaSaidaId(cargaSaidaId: string): Promise<CargaSaidaPendente> {
+        let cargaSaidaPendenteModel;
+        try {
+            cargaSaidaPendenteModel = await CargaSaidaPendenteModel.findOne({
+                where: {
+                    carga_saida_id: cargaSaidaId
+                }
+            });
+        } catch (error) {
+            throw new Error("CargaSaidaPendente not found");
+        }
+
+        const cargaSaidaPendente = new CargaSaidaPendente(cargaSaidaPendenteModel.id, cargaSaidaPendenteModel.carga_saida_id);
+        return cargaSaidaPendente;
+    }
+
 }

@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import CargaSaidaPendenteModel from "../../../carga_saida_pendente/repo/sequelize/carga_saida_pendente.model";
 
 @Table({ 
     tableName: "carga_saida", 
