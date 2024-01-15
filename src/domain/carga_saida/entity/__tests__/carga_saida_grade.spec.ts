@@ -13,13 +13,13 @@ describe('CargaSaidaGrade unit tests', () => {
     it("should throw error when cabotagem is empty", () => {
             
             expect(() => {
-                let cargaSaidaGrade = new CargaSaidaGrade("1", null, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+                let cargaSaidaGrade = new CargaSaidaGrade("1", undefined, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
             }).toThrowError("Cabotagem is required");
     });
 
     it("should throw error when terceiro is empty", () => {               
         expect(() => {
-            let cargaSaidaGrade = new CargaSaidaGrade("1", true, null, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+            let cargaSaidaGrade = new CargaSaidaGrade("1", true, undefined, "1", 1, 1, 1, 1, 1, 1, 1, 1);
         }).toThrowError("Terceiro is required");
     });
 
