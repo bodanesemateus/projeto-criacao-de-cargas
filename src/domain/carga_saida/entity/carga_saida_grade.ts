@@ -137,7 +137,7 @@ export default class CargaSaidaGrade {
             id: this.id,
             cabotagem: this.cabotagem,
             terceiro: this.terceiro,
-            cargaSaidaId: this.cargaSaidaId,
+            carga_saida_id: this.cargaSaidaId,
             tpCarSaiId: this.tpCarSaiId,
             tpConsCargId: this.tpConsCargId,
             unidCargaId: this.unidCargaId,
