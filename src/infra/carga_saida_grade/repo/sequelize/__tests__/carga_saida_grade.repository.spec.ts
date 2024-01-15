@@ -2,6 +2,9 @@ import { Sequelize } from "sequelize-typescript";
 import CargaSaidaGradeModel from "../carga_saida_grade.model";
 import CargaSaidaGrade from "../../../../../domain/carga_saida/entity/carga_saida_grade";
 import CargaSaidaGradeRepository from "../carga_saida_grade.repository";
+import CargaSaidaRepository from "../../../../carga_saida/repo/sequelize/carga_saida.repository";
+import CargaSaidaModel from "../../../../carga_saida/repo/sequelize/carga_saida.model";
+import CargaSaida from "../../../../../domain/carga_saida/entity/carga_saida";
 
 describe('CargaSaidaGradeRepository unit tests', () => {
     let sequelize: Sequelize;
@@ -14,7 +17,7 @@ describe('CargaSaidaGradeRepository unit tests', () => {
             sync: { force: true },
         });
 
-        sequelize.addModels([CargaSaidaGradeModel]);
+        sequelize.addModels([CargaSaidaGradeModel, CargaSaidaModel]);
         await sequelize.sync();
     });
 
@@ -23,9 +26,12 @@ describe('CargaSaidaGradeRepository unit tests', () => {
     });
 
     it('should create a new CargaSaidaGrade', async () => {
-            
+        const cargaSaidaRepository = new CargaSaidaRepository();     
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida);
+
         const cargaGradeRepository = new CargaSaidaGradeRepository();
-        const cargaGrade = new CargaSaidaGrade("1", true, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+        const cargaGrade = new CargaSaidaGrade("1", true, true, cargaSaida.id, 1, 1, 1, 1, 1, 1, 1, 1);
 
         await cargaGradeRepository.create(cargaGrade);
 
@@ -36,27 +42,30 @@ describe('CargaSaidaGradeRepository unit tests', () => {
     });
 
     it('should update a CargaSaidaGrade', async () => {
+        const cargaSaidaRepository = new CargaSaidaRepository();     
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida);
 
         const cargaGradeRepository = new CargaSaidaGradeRepository();
-        const cargaGrade = new CargaSaidaGrade("1", true, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
-
+        const cargaGrade = new CargaSaidaGrade("1", true, true, cargaSaida.id, 1, 1, 1, 1, 1, 1, 1, 1);
         await cargaGradeRepository.create(cargaGrade);
 
-        const cargaGradeUpdated = new CargaSaidaGrade("1", false, false, "1", 1, 1, 1, 1, 1, 1, 1, 1);
-
-        await cargaGradeRepository.update(cargaGradeUpdated);
+        cargaGrade.changeCargoSaidaId("2");
+        await cargaGradeRepository.update(cargaGrade);
 
         const cargaGradeCreated = await cargaGradeRepository.findById("1");
 
         expect(cargaGradeCreated).not.toBeNull();
-        expect(cargaGradeCreated.toJSON()).toEqual(cargaGradeUpdated.toJSON());
-
+        expect(cargaGradeCreated.toJSON()).toEqual(cargaGrade.toJSON());
     });
 
     it('should find a CargaSaidaGrade by id', async () => {
+        const cargaSaidaRepository = new CargaSaidaRepository();     
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida);
 
         const cargaGradeRepository = new CargaSaidaGradeRepository();
-        const cargaGrade = new CargaSaidaGrade("1", true, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+        const cargaGrade = new CargaSaidaGrade("1", true, true, cargaSaida.id, 1, 1, 1, 1, 1, 1, 1, 1);
 
         await cargaGradeRepository.create(cargaGrade);
 
@@ -69,9 +78,16 @@ describe('CargaSaidaGradeRepository unit tests', () => {
 
     it('shoudl find all CargaSaidaGrade', async  () => {
 
+        const cargaSaidaRepository = new CargaSaidaRepository();     
+        const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida);
+     
+        const cargaSaida2 = new CargaSaida("2", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
+        await cargaSaidaRepository.create(cargaSaida2);
+
         const cargaGradeRepository = new CargaSaidaGradeRepository();
-        const cargaGrade = new CargaSaidaGrade("1", true, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
-        const cargaGrade2 = new CargaSaidaGrade("2", true, true, "1", 1, 1, 1, 1, 1, 1, 1, 1);
+        const cargaGrade = new CargaSaidaGrade("1", true, true, cargaSaida.id, 1, 1, 1, 1, 1, 1, 1, 1);
+        const cargaGrade2 = new CargaSaidaGrade("2", true, true, cargaSaida2.id, 1, 1, 1, 1, 1, 1, 1, 1);
 
         await cargaGradeRepository.create(cargaGrade);
         await cargaGradeRepository.create(cargaGrade2);

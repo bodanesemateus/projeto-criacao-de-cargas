@@ -1,4 +1,5 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import CargaSaidaModel from "../../../carga_saida/repo/sequelize/carga_saida.model";
 
 @Table({ 
     tableName: "carga_saida_grade", 
@@ -15,8 +16,12 @@ export default class CargaSaidaGradeModel extends Model{
     @Column({allowNull: false})
     declare terceiro: boolean;
 
+    @ForeignKey(() => CargaSaidaModel)
     @Column({allowNull: false})
-    declare cargaSaidaId: string;
+    declare carga_saida_id: string;
+
+    @BelongsTo(() => CargaSaidaModel)
+    declare carga_saida: CargaSaidaModel;
 
     @Column({allowNull: false})
     declare tpCarSaiId: number;
