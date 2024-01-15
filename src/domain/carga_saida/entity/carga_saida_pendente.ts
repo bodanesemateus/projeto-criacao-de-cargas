@@ -21,4 +21,19 @@ export default class CargaSaidaPendente {
         return true;
     }
 
+    get id(): string {
+        return this._id;
+    }
+
+    get cargaSaidaId(): string {
+        return this._cargaSaidaId;
+    }
+
+    toJSON() { 
+        return {
+            id: this.id,
+            cargaSaidaId: this.cargaSaidaId
+        }
+    }
+
 }
