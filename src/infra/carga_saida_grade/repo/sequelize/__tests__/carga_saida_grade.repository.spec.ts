@@ -12,7 +12,7 @@ describe('CargaSaidaGradeRepository unit tests', () => {
     beforeEach(async () => {
         sequelize = new Sequelize({
             dialect: 'sqlite',
-            storage: ':memory:',
+            storage: ':memory:', 
             logging: false,
             sync: { force: true },
         });
@@ -41,22 +41,28 @@ describe('CargaSaidaGradeRepository unit tests', () => {
         expect(cargaGradeCreated.toJSON()).toEqual(cargaGrade.toJSON());
     });
 
-    it('should update a CargaSaidaGrade', async () => {
+    it('should update a new CargaSaidaGrade', async () => {
         const cargaSaidaRepository = new CargaSaidaRepository();     
         const cargaSaida = new CargaSaida("1", new Date(), 1, 1, 1, new Date(),1, 1, 1, 1, 1, 1, 1);   
         await cargaSaidaRepository.create(cargaSaida);
 
         const cargaGradeRepository = new CargaSaidaGradeRepository();
         const cargaGrade = new CargaSaidaGrade("1", true, true, cargaSaida.id, 1, 1, 1, 1, 1, 1, 1, 1);
+
         await cargaGradeRepository.create(cargaGrade);
 
-        cargaGrade.changeCargoSaidaId("2");
-        await cargaGradeRepository.update(cargaGrade);
+        cargaGrade.changeCabotagem(false);
 
-        const cargaGradeCreated = await cargaGradeRepository.findById("1");
+        try {
+            await cargaGradeRepository.update(cargaGrade);    
+        } catch (error) {
+            throw new Error(String(error));
+        }
 
-        expect(cargaGradeCreated).not.toBeNull();
-        expect(cargaGradeCreated.toJSON()).toEqual(cargaGrade.toJSON());
+        const cargaGradeUpdated = await cargaGradeRepository.findById("1");
+
+        expect(cargaGradeUpdated).not.toBeNull();
+        expect(cargaGradeUpdated.toJSON()).toEqual(cargaGrade.toJSON());
     });
 
     it('should find a CargaSaidaGrade by id', async () => {

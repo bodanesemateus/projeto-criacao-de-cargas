@@ -80,8 +80,8 @@ export default class CargaSaidaGrade {
         return true;
     }
 
-    changeCargoSaidaId(cargaSaidaId: string) {
-        this._cargaSaidaId = cargaSaidaId;
+    changeCabotagem(cabotagem: boolean): void {
+        this._cabotagem = cabotagem;
     }
 
     get id(): string {
